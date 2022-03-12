@@ -33,8 +33,8 @@ btns.forEach(btn =>{
   btn.addEventListener('click', (e) => {
     if (e.target.id == '='){
       displayValue = operate(displayValue);
-    } else if (displayValue){
-      displayValue += ` ${e.target.id}`;
+    } else if ((e.target.id == '+') || (e.target.id == '*') || (e.target.id == '-') || (e.target.id == '/')) {
+      displayValue += ` ${e.target.id} `;
     } else {
       displayValue += e.target.id;
     }
