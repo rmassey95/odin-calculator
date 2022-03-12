@@ -13,17 +13,26 @@ function divide(a,b){
 
 function operate(equation){
   let test = equation.split(' ');
-  console.log(test);
+  ans = 0;
   switch(test[1]){
     case '+':
-      return add(parseInt(test[0]),parseInt(test[2]));
+      ans = add(parseInt(test[0]),parseInt(test[2]));
+      break;
     case '-':
-      return subtract(parseInt(test[0]),parseInt(test[2]));
+      ans = subtract(parseInt(test[0]),parseInt(test[2]));
+      break;
     case '*':
-      return multiply(parseInt(test[0]),parseInt(test[2]));
+      ans = multiply(parseInt(test[0]),parseInt(test[2]));
+      break;
     case '/':
-      return divide(parseInt(test[0]),parseInt(test[2]));
+      ans = divide(parseInt(test[0]),parseInt(test[2]));
+      break;
   }
+  console.log(ans.toString().length);
+  if (ans.toString().length > 10) {
+    ans = (Math.round(ans/(10**(ans.toString().length - 10))));
+  }
+  return ans;
 }
 
 const btns = document.querySelectorAll('.buttons');
@@ -32,16 +41,14 @@ let displayValue = '';
 btns.forEach(btn =>{
   btn.addEventListener('click', (e) => {
     if ((e.target.id == '+') || (e.target.id == '*') || (e.target.id == '-') || (e.target.id == '/')) {
-      displayValue += ` ${e.target.id}`;
-    } else if (displayValue.includes(' ')) {
-      displayValue += ` ${e.target.id}`;
+      displayValue += ` ${e.target.id} `;
     } else {
       displayValue += e.target.id;
     }
     if (e.target.id == 'clear'){
       displayValue = '';
     }
-    if ((e.target.id == '=') || (displayValue.split(' ').length == 3)){
+    if (e.target.id == '='){
       displayValue = operate(displayValue);
     }
     const outputContainer = document.querySelector('#output');
