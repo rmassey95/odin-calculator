@@ -11,25 +11,38 @@ function divide(a,b){
   return a / b;
 }
 
-function operate(operator, num1, num2){
-  switch(operator){
+function operate(equation){
+  let test = equation.split(' ');
+  console.log(test);
+  switch(test[1]){
     case '+':
-      return add(num1,num2);
-      break;
+      return add(parseInt(test[0]),parseInt(test[2]));
     case '-':
-      return subtract(num1,num2);
-      break;
+      return subtract(parseInt(test[0]),parseInt(test[2]));
     case '*':
-      return multiply(num1,num2);
-      break;
+      return multiply(parseInt(test[0]),parseInt(test[2]));
     case '/':
-      return divide(num1,num2);
-      break;
+      return divide(parseInt(test[0]),parseInt(test[2]));
   }
 }
 
-console.log(operate('+',2,2));
-console.log(operate('-',2,2));
-console.log(operate('*',2,2));
-console.log(operate('/',2,2));
+const btns = document.querySelectorAll('.buttons');
+let displayValue = '';
+
+btns.forEach(btn =>{
+  btn.addEventListener('click', (e) => {
+    if (e.target.id == '='){
+      displayValue = operate(displayValue);
+    } else if (displayValue){
+      displayValue += ` ${e.target.id}`;
+    } else {
+      displayValue += e.target.id;
+    }
+    if (e.target.id == 'clear'){
+      displayValue = '';
+    }
+    const outputContainer = document.querySelector('#output');
+    outputContainer.textContent = displayValue;
+  })
+})
 

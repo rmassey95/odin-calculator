@@ -31,11 +31,7 @@ body {
   background-color: white;
   border-radius: 10px;
   margin-bottom: 20px;
-}
-
-#output p {
   font-size: 30px;
-  margin: 0;
 }
 
 #button-container {
