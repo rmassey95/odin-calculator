@@ -32,3 +32,4 @@ console.log(operate('+',2,2));
 console.log(operate('-',2,2));
 console.log(operate('*',2,2));
 console.log(operate('/',2,2));
+
