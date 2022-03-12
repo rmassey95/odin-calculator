@@ -13,6 +13,9 @@ function divide(a,b){
 
 function operate(equation){
   let test = equation.split(' ');
+  if (!test[2]){
+    return equation;
+  }
   ans = 0;
   switch(test[1]){
     case '+':
@@ -25,10 +28,12 @@ function operate(equation){
       ans = multiply(parseInt(test[0]),parseInt(test[2]));
       break;
     case '/':
+      if (parseInt(test[2]) == 0){
+        return "Can't divide by zero";
+      }
       ans = divide(parseInt(test[0]),parseInt(test[2]));
       break;
   }
-  console.log(ans.toString().length);
   if (ans.toString().length > 10) {
     ans = (Math.round(ans/(10**(ans.toString().length - 10))));
   }
@@ -40,17 +45,19 @@ let displayValue = '';
 
 btns.forEach(btn =>{
   btn.addEventListener('click', (e) => {
+    if (displayValue == "Can't divide by zero") {
+      displayValue = '';
+    }
     if ((e.target.id == '+') || (e.target.id == '*') || (e.target.id == '-') || (e.target.id == '/')) {
       displayValue += ` ${e.target.id} `;
+    } else if(e.target.id == '='){
+      displayValue = operate(displayValue);
+    } else if (e.target.id == 'clear'){
+      displayValue = '';
     } else {
       displayValue += e.target.id;
     }
-    if (e.target.id == 'clear'){
-      displayValue = '';
-    }
-    if (e.target.id == '='){
-      displayValue = operate(displayValue);
-    }
+    
     const outputContainer = document.querySelector('#output');
     outputContainer.textContent = displayValue;
   })
