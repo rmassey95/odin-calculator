@@ -19,23 +19,25 @@ function operate(equation){
   ans = 0;
   switch(test[1]){
     case '+':
-      ans = add(parseInt(test[0]),parseInt(test[2]));
+      ans = add(parseFloat(test[0]),parseFloat(test[2]));
       break;
     case '-':
-      ans = subtract(parseInt(test[0]),parseInt(test[2]));
+      ans = subtract(parseFloat(test[0]),parseFloat(test[2]));
       break;
     case '*':
-      ans = multiply(parseInt(test[0]),parseInt(test[2]));
+      ans = multiply(parseFloat(test[0]),parseFloat(test[2]));
       break;
     case '/':
-      if (parseInt(test[2]) == 0){
+      if (parseFloat(test[2]) == 0){
         return "Can't divide by zero";
       }
-      ans = divide(parseInt(test[0]),parseInt(test[2]));
+      ans = divide(parseFloat(test[0]),parseFloat(test[2]));
       break;
   }
-  if (ans.toString().length > 10) {
+  if ((Math.round(ans).toString().length > 10) && (ans%1 == 0)){
     ans = (Math.round(ans/(10**(ans.toString().length - 10))));
+  } else if (ans.toString().length > 10){
+    ans = (Math.round(ans*10)/10);
   }
   return ans;
 }
